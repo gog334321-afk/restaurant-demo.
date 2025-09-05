@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Delicious Bites Restaurant</title>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<style>
+* {margin:0; padding:0; box-sizing:border-box; font-family: 'Roboto', sans-serif;}
+body {line-height:1.6; background:#fff;}
+nav {background:#ff6347; color:white; display:flex; justify-content:space-between; align-items:center; padding:1rem 2rem; position:sticky; top:0; z-index:1000;}
+nav .logo {font-size:1.5rem; font-weight:bold;}
+nav ul {list-style:none; display:flex;}
+nav ul li {margin-left:2rem;}
+nav ul li a {color:white; text-decoration:none; font-weight:500;}
+.menu-toggle {display:none; flex-direction:column; cursor:pointer;}
+.menu-toggle span {height:3px; width:25px; background:white; margin-bottom:4px; border-radius:3px;}
+@media(max-width:768px){nav ul{position:absolute;top:70px;left:-100%;flex-direction:column;width:100%;background:#ff6347;transition:left 0.3s;}nav ul.show{left:0;}nav ul li{margin:1.5rem 0;text-align:center;}.menu-toggle{display:flex;}}
+.hero {background:url('https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=1200&q=80') no-repeat center center/cover; height:70vh; display:flex; justify-content:center; align-items:center; color:white; text-align:center;}
+.hero h1 {font-size:3rem; margin-bottom:1rem;}
+.hero p {font-size:1.2rem; margin-bottom:2rem;}
+.menu {padding:4rem 2rem; text-align:center;}
+.menu h2 {font-size:2.5rem; margin-bottom:2rem; color:#333;}
+.menu-items {display:grid; grid-template-columns:repeat(auto-fit,minmax(250px,1fr)); gap:2rem;}
+.menu-item {border:1px solid #ddd; border-radius:10px; overflow:hidden; transition: transform 0.3s, box-shadow 0.3s; cursor:pointer;}
+.menu-item:hover {transform:translateY(-5px); box-shadow:0 10px 20px rgba(0,0,0,0.2);}
+.menu-item img {width:100%; height:180px; object-fit:cover;}
+.menu-item h3 {font-size:1.3rem; margin:0.5rem 0;}
+.menu-item p {padding:0 1rem 1rem; color:#666; font-size:0.95rem;}
+.contact-section {background:#f8f8f8; padding:4rem 2rem; text-align:center;}
+.contact-section h2 {font-size:2.5rem; margin-bottom:2rem; color:#333;}
+.contact-buttons {display:flex; justify-content:center; flex-wrap:wrap; gap:2rem; margin-bottom:2rem;}
+.contact-buttons a {display:flex; align-items:center; justify-content:center; text-decoration:none; color:white; font-weight:bold; font-size:1.2rem; padding:1.5rem 2.5rem; border-radius:10px; transition:0.3s; min-width:180px;}
+.email-btn {background:#1a73e8;}
+.email-btn:hover {background:#1558b0;}
+.whatsapp-btn {background:#25d366;}
+.whatsapp-btn:hover {background:#1aa34a;}
+.call-btn {background:#ff6347;}
+.call-btn:hover {background:#e5533d;}
+.map-container {width:100%; max-width:800px; margin:0 auto;}
+/* Popup Modal Styles */
+.modal {display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; z-index:10000;}
+.modal-content {background:white; padding:2rem; border-radius:10px; text-align:center; max-width:350px; width:90%;}
+.modal-content h3 {margin-bottom:1.5rem;}
+.modal-content button {padding:0.8rem 1.5rem; margin:0.5rem; border:none; border-radius:5px; font-weight:bold; cursor:pointer; transition:0.3s;}
+.modal-content .email {background:#1a73e8; color:white;}
+.modal-content .email:hover {background:#1558b0;}
+.modal-content .whatsapp {background:#25d366; color:white;}
+.modal-content .whatsapp:hover {background:#1aa34a;}
+.modal-content .cancel {background:#ccc;}
+.modal-content .cancel:hover {background:#999;}
+</style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav>
+    <div class="logo">Delicious Bites</div>
+    <div class="menu-toggle" id="menu-toggle">
+        <span></span><span></span><span></span>
+    </div>
+    <ul id="menu">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#menu-section">Menu</a></li>
+        <li><a href="#contact">Contact</a></li>
+    </ul>
+</nav>
+
+<!-- Hero Section -->
+<section class="hero" id="home">
+    <div>
+        <h1>Welcome to Delicious Bites</h1>
+        <p>ডেলিশিয়াস বাইটসে স্বাগতম! Experience the taste of perfection in every bite.</p>
+    </div>
+</section>
+
+<!-- Menu Section -->
+<section class="menu" id="menu-section">
+    <h2>Our Menu / আমাদের মেনু</h2>
+    <div class="menu-items">
+        <div class="menu-item" onclick="openModal('Grilled Steak / গ্রিলড স্টেক')">
+            <img src="https://images.unsplash.com/photo-1604908177527-f99b6162f226?auto=format&fit=crop&w=400&q=80" alt="Grilled Steak">
+            <h3>Grilled Steak / গ্রিলড স্টেক</h3>
+            <p>Juicy grilled steak with garlic butter and roasted vegetables.<br>রসালো গ্রিলড স্টেক, রসুন মাখন এবং ভাজা সবজির সাথে।</p>
+        </div>
+        <div class="menu-item" onclick="openModal('Pasta Alfredo / পাস্তা আলফ্রেডো')">
+            <img src="https://images.unsplash.com/photo-1600891964351-7c93b3b10727?auto=format&fit=crop&w=400&q=80" alt="Pasta Alfredo">
+            <h3>Pasta Alfredo / পাস্তা আলফ্রেডো</h3>
+            <p>Creamy fettuccine with Parmesan cheese and fresh herbs.<br>ক্রিমি ফেতুচিনি, পারমেজান চিজ এবং তাজা মশলার সাথে।</p>
+        </div>
+        <div class="menu-item" onclick="openModal('Caesar Salad / সিজার সালাদ')">
+            <img src="https://images.unsplash.com/photo-1600891964599-f61ba0e24092?auto=format&fit=crop&w=400&q=80" alt="Caesar Salad">
+            <h3>Caesar Salad / সিজার সালাদ</h3>
+            <p>Fresh romaine lettuce with Caesar dressing and croutons.<br>তাজা রোমেইন লেটুস, সিজার ড্রেসিং এবং ক্রুটনস।</p>
+        </div>
+        <div class="menu-item" onclick="openModal('Bangladeshi Fish Curry / বাংলাদেশি মাছের কারি')">
+            <img src="https://images.unsplash.com/photo-1617196032077-39b9eaa15c15?auto=format&fit=crop&w=400&q=80" alt="Bangladeshi Fish Curry">
+            <h3>Bangladeshi Fish Curry / বাংলাদেশি মাছের কারি</h3>
+            <p>Authentic spicy fish curry served with steamed rice.<br>মশলাদার দেশীয় মাছের কারি, ভাতের সাথে পরিবেশিত।</p>
+        </div>
+        <div class="menu-item" onclick="openModal('Mango Lassi / আম লাসি')">
+            <img src="https://images.unsplash.com/photo-1606813908323-0190e5d94e27?auto=format&fit=crop&w=400&q=80" alt="Mango Lassi">
+            <h3>Mango Lassi / আম লাসি</h3>
+            <p>Refreshing yogurt-based mango drink with a hint of cardamom.<br>দুধের ওপর ভিত্তিক আমের পানীয়, এলাচের স্বাদসহ।</p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section -->
+<section class="contact-section" id="contact">
+    <h2>Contact Us / আমাদের সাথে যোগাযোগ করুন</h2>
+    <div class="contact-buttons">
+        <a href="mailto:contact@deliciousbites.com" class="email-btn">Email</a>
+        <a href="https://wa.me/880123456789" target="_blank" class="whatsapp-btn">WhatsApp</a>
+        <a href="tel:+880123456789" class="call-btn">Call</a>
+    </div>
+    <div class="map-container">
+        <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3651.902633964822!2d90.36681841498102!3d22.84563948501595!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x30acd8882e3fbd3b%3A0x123456789abcdef!2sKhulna%2C%20Bangladesh!5e0!3m2!1sen!2sbd!4v1693920000000!5m2!1sen!2sbd" width="100%" height="400" style="border:0;" allowfullscreen="" loading="lazy"></iframe>
+    </div>
+</section>
+
+<!-- Modal -->
+<div class="modal" id="modal">
+    <div class="modal-content">
+        <h3>Send this item / এই আইটেম পাঠাবেন</h3>
+        <button class="email" id="modalEmail">Email</button>
+        <button class="whatsapp" id="modalWhatsApp">WhatsApp</button>
+        <button class="cancel" onclick="closeModal()">Cancel</button>
+    </div>
+</div>
+
+<footer>
+    <p>© 2025 Delicious Bites</p>
+</footer>
+
+<script>
+const menuToggle = document.getElementById('menu-toggle');
+const menu = document.getElementById('menu');
+menuToggle.addEventListener('click', () => menu.classList.toggle('show'));
+
+let selectedItem = '';
+
+function openModal(item){
+    selectedItem = item;
+    document.getElementById('modal').style.display = 'flex';
+}
+
+function closeModal(){
+    document.getElementById('modal').style.display = 'none';
+}
+
+// Modal buttons
+document.getElementById('modalEmail').addEventListener('click', () => {
+    const email = "contact@deliciousbites.com";
+    const subject = encodeURIComponent("Order Request / অর্ডার অনুরোধ");
+    const body = encodeURIComponent("I would like to order: " + selectedItem);
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+    closeModal();
+});
+
+document.getElementById('modalWhatsApp').addEventListener('click', () => {
+    const message = encodeURIComponent("I would like to order: " + selectedItem);
+    window.open(`https://wa.me/880123456789?text=${message}`, '_blank');
+    closeModal();
+});
+</script>
+
+</body>
+</html>
